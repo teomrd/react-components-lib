@@ -1,0 +1,6 @@
+rating-star {
+  background: transparent;
+}
+rating-start:hover {
+  background-color: red;
+}

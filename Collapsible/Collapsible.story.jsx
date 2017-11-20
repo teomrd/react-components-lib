@@ -1,5 +1,7 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
+import { text } from "@storybook/addon-knobs";
+import { withInfo } from "@storybook/addon-info";
 import { muiTheme } from "storybook-addon-material-ui";
 import AppBar from "material-ui/AppBar";
 import FontIcon from "material-ui/FontIcon";
@@ -9,6 +11,7 @@ import Subheader from "material-ui/Subheader";
 import Button from "material-ui-next/Button";
 import StarBorder from "material-ui/svg-icons/toggle/star-border";
 import faker from "faker";
+import { CenterDecorator } from "../../../.storybook/decorators";
 import Collapsible from "../Collapsible";
 import "../../App.css";
 
@@ -74,19 +77,20 @@ const GridListExampleSimple = () => (
   </div>
 );
 
-const Header = ({ toggle, expanded }) => (
+const Header = ({ title, toggle, expanded }) => (
   <div
     style={{
       width: "100%",
       backgroundColor: "teal",
-      padding: "20px 0px"
+      padding: "20px 0px",
+      cursor: "pointer"
     }}
     role="button"
     tabIndex="0"
     onClick={toggle}
     onKeyPress={toggle}
   >
-    This is a title
+    {title}
     <FontIcon className="material-icons" style={{ float: "right" }}>
       {expanded ? "keyboard_arrow_down" : "keyboard_arrow_up"}
     </FontIcon>
@@ -96,19 +100,34 @@ const Header = ({ toggle, expanded }) => (
 const AppBarExample = ({ toggle, expanded }) => (
   <AppBar
     title="Title"
-    iconElementRight={<Button label={expanded ? "Collapse" : "Expand"} />}
+    iconElementRight={
+      <Button raised color="primary" label={expanded ? "Collapse" : "Expand"}>
+        Toggle
+      </Button>
+    }
     onRightIconButtonTouchTap={toggle}
   />
 );
 
 storiesOf("Collapsibles/Collapsible", module)
+  .addDecorator(CenterDecorator)
   .addDecorator(muiTheme())
-  .add("with an icon", () => (
-    <Collapsible initiallyExpanded item={<Header />}>
-      <div>Hey you!!!!</div>
-    </Collapsible>
-  ))
-  .add("with an AppBar component as header", () => (
+  .add(
+    "simple configuration",
+    withInfo(
+      "on the 'item' component of the Collapsible you can pass whatever React Component with some props. It will also have some extra props as the 'expanded' bool and the 'toggle' function to pass it for example to an onClick event"
+    )(() => (
+      <Collapsible
+        initiallyExpanded
+        item={<Header title={text("title", "Demo title")} />}
+      >
+        <div>
+          {text("content", "You can add here some text to be displayed")}
+        </div>
+      </Collapsible>
+    ))
+  )
+  .add("with an AppBar header and a Grid List as child", () => (
     <Collapsible initiallyExpanded item={<AppBarExample />}>
       <GridListExampleSimple />
     </Collapsible>

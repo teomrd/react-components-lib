@@ -122,7 +122,7 @@ storiesOf("Collapsibles/Collapsible", module)
         item={<Header title={text("title", "Some demo title")} />}
       >
         <div>
-          {text("content", "You can add here some text to be displayed")}
+          {text("content", "You can add here some text to be displayed!")}
         </div>
       </Collapsible>
     ))

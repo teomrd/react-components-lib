@@ -119,7 +119,7 @@ storiesOf("Collapsibles/Collapsible", module)
     )(() => (
       <Collapsible
         initiallyExpanded
-        item={<Header title={text("title", "Demo title")} />}
+        item={<Header title={text("title", "Some demo title")} />}
       >
         <div>
           {text("content", "You can add here some text to be displayed")}

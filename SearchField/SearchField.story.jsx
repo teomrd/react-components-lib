@@ -3,9 +3,13 @@ import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import { muiTheme } from "storybook-addon-material-ui";
 import SearchField from "./SearchField";
+import { CenterDecorator } from "../../../.storybook/decorators";
 
 storiesOf("SearchField", module)
+  .addDecorator(CenterDecorator)
   .addDecorator(muiTheme())
   .add("simplest", () => (
-    <SearchField onClear={action("onClear")} onChange={action("onChange")} />
+    <div style={{ background: "teal", padding: "15px" }}>
+      <SearchField onClear={action("onClear")} onChange={action("onChange")} />
+    </div>
   ));

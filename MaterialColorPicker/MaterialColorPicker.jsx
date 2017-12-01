@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { SwatchesPicker } from "react-color";
 import FontIcon from "material-ui/FontIcon";
 import IconButton from "material-ui/IconButton";
-import { Spot } from "lib";
+import Spot from "../Spot/Spot";
 
 const styles = {
   color: {
@@ -36,11 +36,13 @@ class MaterialColorPicker extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      color: props.color,
       displayColorPicker: false
     };
 
     this.handleClick = this.handleClick.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.handleRemove = this.handleRemove.bind(this);
   }
 
@@ -52,39 +54,53 @@ class MaterialColorPicker extends React.Component {
     this.setState({ displayColorPicker: false });
   }
 
-  handleChange(e) {
-    this.props.onColorChange(e.hex);
+  handleChange({ hex = "" } = {}) {
+    this.setState({ displayColorPicker: false, color: hex });
+    this.props.onColorChange(hex);
   }
 
   handleRemove() {
+    this.setState({ displayColorPicker: false, color: "" });
     this.props.onColorChange("");
   }
 
   render() {
-    const { color } = this.props;
+    const { color } = this.state;
     return (
       <div
         style={{
           margin: "10px 0"
         }}
       >
-        <div style={styles.swatch} onClick={this.handleClick}>
+        <div
+          style={styles.swatch}
+          onClick={this.handleClick}
+          onKeyPress={this.handleClick}
+          role="button"
+          tabIndex={0}
+        >
           {color ? (
             <Spot color={color} />
           ) : (
             <FontIcon className="material-icons">not_interested</FontIcon>
           )}
         </div>
-        {this.state.displayColorPicker ? (
+        {this.state.displayColorPicker && (
           <div style={styles.popover}>
-            <div style={styles.cover} onClick={this.handleClose} />
+            <div
+              style={styles.cover}
+              onClick={this.handleClose}
+              onKeyPress={this.handleClick}
+              role="button"
+              tabIndex={0}
+            />
             <SwatchesPicker
-              onChangeComplete={e => this.handleChange(e)}
+              onChangeComplete={this.handleChange}
               color={color}
             />
           </div>
-        ) : null}
-        {color ? (
+        )}
+        {this.state.color && (
           <IconButton
             iconClassName="material-icons"
             tooltip="Remove color tag"
@@ -93,7 +109,7 @@ class MaterialColorPicker extends React.Component {
           >
             close
           </IconButton>
-        ) : null}
+        )}
       </div>
     );
   }
@@ -105,7 +121,7 @@ MaterialColorPicker.propTypes = {
 };
 
 MaterialColorPicker.defaultProps = {
-  color: null
+  color: ""
 };
 
 export default MaterialColorPicker;

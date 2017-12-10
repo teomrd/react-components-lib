@@ -33,29 +33,18 @@ const details = faker.lorem.paragraphs();
 
 storiesOf("Collapsibles/CollapsibleTableRow", module)
   .addDecorator(muiTheme())
-  .add("CollapsibleTableRow with some details", () => (
-    <Table
-      selectable={false}
-      displaySelectAll={false}
-      style={{ width: "100%", tableLayout: "auto", display: "table" }}
-    >
-      <TableBody
-        displayRowCheckbox={false}
-        style={{ display: "table-row-group" }}
+  .add("CollapsibleTableRow with some details", () =>
+    data.map(dato => (
+      <CollapsibleTableRow
+        key={`${dato.col1}--${dato.col2}--${dato.col3}`}
+        content={<div>{details}</div>}
       >
-        {data.map((dato, index) => (
-          <CollapsibleTableRow
-            key={`${dato.col1}--${index}`}
-            content={<div>{details}</div>}
-          >
-            <TableRowColumn>{dato.col1}</TableRowColumn>
-            <TableRowColumn>{dato.col2}</TableRowColumn>
-            <TableRowColumn>{dato.col2}</TableRowColumn>
-            <TableRowColumn>{dato.col1}</TableRowColumn>
-            <TableRowColumn>{dato.col2}</TableRowColumn>
-            <TableRowColumn>{dato.col2}</TableRowColumn>
-          </CollapsibleTableRow>
-        ))}
-      </TableBody>
-    </Table>
-  ));
+        <TableRowColumn>{dato.col1}</TableRowColumn>
+        <TableRowColumn>{dato.col2}</TableRowColumn>
+        <TableRowColumn>{dato.col2}</TableRowColumn>
+        <TableRowColumn>{dato.col1}</TableRowColumn>
+        <TableRowColumn>{dato.col2}</TableRowColumn>
+        <TableRowColumn>{dato.col2}</TableRowColumn>
+      </CollapsibleTableRow>
+    ))
+  );

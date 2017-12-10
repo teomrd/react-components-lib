@@ -18,6 +18,14 @@ class Collapsible extends Component {
     });
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.expanded !== undefined) {
+      this.setState({
+        expanded: nextProps.expanded
+      });
+    }
+  }
+
   expand() {
     this.setState({
       expanded: true
@@ -39,9 +47,9 @@ class Collapsible extends Component {
   render() {
     const Item = React.cloneElement(this.props.item, {
       key: "header",
-      expand: this.expand,
-      collapse: this.collapse,
-      toggle: this.toggle,
+      expand: this.props.expand || this.expand,
+      collapse: this.props.collapse || this.collapse,
+      toggle: this.props.toggle || this.toggle,
       expanded: this.state.expanded
     });
     const ChildrenWithProps = React.Children.map(this.props.children, child => {
@@ -55,6 +63,10 @@ class Collapsible extends Component {
 }
 
 Collapsible.propTypes = {
+  toggle: PropTypes.func,
+  expand: PropTypes.func,
+  collapse: PropTypes.func,
+  expanded: PropTypes.bool,
   item: PropTypes.element.isRequired,
   initiallyExpanded: PropTypes.bool,
   children: PropTypes.oneOfType([
@@ -64,6 +76,7 @@ Collapsible.propTypes = {
 };
 
 Collapsible.defaultProps = {
+  expanded: undefined,
   initiallyExpanded: false
 };
 

@@ -32,8 +32,8 @@ CollapsibleListHeader.defaultProps = {
   expanded: false
 };
 
-const CollapsibleListItem = ({ title, children }) => (
-  <Collapsible item={<CollapsibleListHeader title={title} />}>
+const CollapsibleListItem = ({ title, children, ...props }) => (
+  <Collapsible {...props} item={<CollapsibleListHeader title={title} />}>
     {children}
   </Collapsible>
 );
@@ -43,7 +43,12 @@ CollapsibleListItem.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.element),
     PropTypes.element
-  ]).isRequired
+  ]).isRequired,
+  expanded: PropTypes.bool
+};
+
+CollapsibleListItem.defaultProps = {
+  expanded: undefined
 };
 
 export default CollapsibleListItem;

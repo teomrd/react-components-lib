@@ -47,8 +47,14 @@ CollapsibleTableRowHeader.defaultProps = {
   expanded: false
 };
 
-const CollapsibleTableRow = ({ children, content, initiallyExpanded }) => (
+const CollapsibleTableRow = ({
+  children,
+  content,
+  initiallyExpanded,
+  ...props
+}) => (
   <Collapsible
+    {...props}
     initiallyExpanded={initiallyExpanded}
     item={<CollapsibleTableRowHeader>{children}</CollapsibleTableRowHeader>}
   >

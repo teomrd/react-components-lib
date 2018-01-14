@@ -2,14 +2,11 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import TextField from "material-ui/TextField";
 import FontIcon from "material-ui/FontIcon";
-import {
-  lightWhite,
-  darkWhite,
-  minBlack,
-  faintBlack
-} from "material-ui/styles/colors";
 import IconButton from "material-ui/IconButton";
 import CircularProgress from "material-ui/CircularProgress";
+import common from "material-ui-next/colors/common";
+
+const { lightWhite, darkWhite, minBlack, faintBlack } = common;
 
 class SearchField extends Component {
   constructor(props) {
@@ -60,7 +57,7 @@ class SearchField extends Component {
               verticalAlign: "middle",
               padding: "10px"
             }}
-            size={20}
+            size={28}
             color={darkWhite}
           />
         ) : (

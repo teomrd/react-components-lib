@@ -1,8 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import IconButton from "material-ui/IconButton";
-import { yellow700 } from "material-ui/styles/colors";
+import yellow from "material-ui-next/colors/yellow";
 import "./styles.css";
+
+const yellow700 = yellow["700"];
 
 const styles = {
   smallIcon: {

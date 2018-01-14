@@ -30,9 +30,9 @@ class Accordion extends Component {
   }
 
   handleToggle(index) {
-    this.setState({
-      expanded: index === this.state.expanded ? undefined : index
-    });
+    this.setState(prevState => ({
+      expanded: index === prevState.expanded ? undefined : index
+    }));
   }
 
   render() {
